@@ -59,6 +59,34 @@
                         Your Applications
                      (Producers/Consumers)
 ```
+## How to use it
+We need to run the containers as a swarm orchestrator. Then deploy the stack, first you need to place in your terminal  and run these commands 
+
+docker swarm init 
+
+docker stack deploy -c compose.yml sample-kafka-stack 
+
+### Getting container id 
+docker ps --filter "label=com.docker.swarm.service.name=sample-kafka-stack_broker1" --no-trunc --format "{{.ID}}" 
+
+or just go directly to your docker desktop and get the container id from the listed brokers. 
+
+### Creating topic 
+You can either open the terminal directly in any broker container or get your container id and run  
+1st option: /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server broker1:9092 --create --topic new-orders --partitions 16 --replication-factor 2 
+
+2nd option: docker exec -it <kafka-container-name> /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server broker1:9092 --create --topic new-orders --partitions 16 --replication-factor 2 
+
+
+### Connecting a consumer 
+docker exec -it <kafka-container-name> /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server broker1:9092 --topic  new-orders 
+
+
+### Connecting a producer 
+docker exec -it <kafka-container-name> /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server broker1:9092 --topic new-orders 
+
+Type any message and you'll see it in the consumer terminal 
+
 
 ## Component Details
 
