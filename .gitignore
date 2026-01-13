@@ -1,0 +1,25 @@
+# Kafka Data
+kafka/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment variables (contains sensitive cluster ID)
+# Uncomment if you want to exclude .env from git
+# .env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Docker volumes (if using bind mounts)
+data/
+volumes/
